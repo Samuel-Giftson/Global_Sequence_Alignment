@@ -27,12 +27,10 @@ def main():
 
             elif value:
                 break
-        except:
+        except Exception as err:
             print("Unexpected Error Occured, Please Re-type strand")
 
-
-
-    print(" ")
+    print()
     while(True):
         print("Type in scores.")
         try:
@@ -61,5 +59,6 @@ def main():
         break
     main_table = table_calculate(first_strand, second_strand, gap_penalty, mismatch, any_match)
 #    x = display("e")
+
 
 main()
