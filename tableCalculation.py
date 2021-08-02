@@ -11,7 +11,7 @@ class TableCalculation:
         self.main_pivot = self.pivot + 2
         self.side_pivot = self.pivot + 1
 
-        # Indexs it shouldn't pivot around
+        # Index it shouldn't pivot around
 
         self.main_list, self.no_pivot_index = self.form_table()
         # print(self.no_pivot_index)
@@ -19,7 +19,7 @@ class TableCalculation:
 
         self.calculate_table_values()
 
-        print(self.main_list)
+        #print(self.main_list)
 
     def form_table(self):
         main_list = []
@@ -75,10 +75,10 @@ class TableCalculation:
 
         side_pivot1 = main_pivot + side_pivot
         temp_gap_penalty = 0
-        print("pivot main_pivot side_pivot side_pivot1")
+        #print("pivot main_pivot side_pivot side_pivot1")
         if (len(self.first_strand) < len(self.second_strand)):
             for j in range(side_pivot - 1):
-                print(pivot, main_pivot, side_pivot, side_pivot1)
+                #print(pivot, main_pivot, side_pivot, side_pivot1)
                 self.main_list[side_pivot1] = temp_gap_penalty + gap_penalty
                 # print(side_pivot1, temp_gap_penalty, gap_penalty)
                 side_pivot1 = side_pivot1 + side_pivot
@@ -86,7 +86,7 @@ class TableCalculation:
             return self.main_list
         elif (len(self.first_strand) > len(self.second_strand)):
             for j in range(side_pivot - 3):
-                print(pivot, main_pivot, side_pivot, side_pivot1)
+                #print(pivot, main_pivot, side_pivot, side_pivot1)
                 self.main_list[side_pivot1] = temp_gap_penalty + gap_penalty
                 # print(side_pivot1, temp_gap_penalty, gap_penalty)
                 side_pivot1 = side_pivot1 + side_pivot
@@ -94,10 +94,10 @@ class TableCalculation:
             return self.main_list
 
     def calculate_table_values(self):
-        #Necessary Basic values needed for calaculation
-        gap_penalty = -1 * self.gap_penalty  #Used only for box 1 depends on situation
-        mismatch = self.mismatch        #messes with both box 2 and box 3
-        any_match = self.any_match           #Used only for box 1 depends on situation
+        # Necessary Basic values needed for calaculation
+        gap_penalty = -1 * self.gap_penalty  # Used only for box 1 depends on situation
+        mismatch = self.mismatch  # messes with both box 2 and box 3
+        any_match = self.any_match  # Used only for box 1 depends on situation
 
         loop_main_pivot = self.main_pivot
         value_calculated = 0
@@ -115,14 +115,14 @@ class TableCalculation:
         #        s_strand_index = 0
         no_index_index_value = self.no_pivot_index[0]
 
-        #temp list of value to put all box values and get the greatest value out for box 4 value
+        # temp list of value to put all box values and get the greatest value out for box 4 value
         temp_list_box_value = []
 
         for i in range(len(self.main_list)):
             if loop_main_pivot <= (len(self.main_list) - 1):
                 if self.main_list[loop_main_pivot] == " ":
                     temp_list_box_value = []
-                    print(loop_main_pivot, f_strand_index, s_strand_index, f_strand, s_strand)
+                    #print(loop_main_pivot, f_strand_index, s_strand_index, f_strand, s_strand)
                     ###f_strand_index = f_strand_index + 1
                     # ________________
                     # | box1  | box2 |
@@ -132,29 +132,27 @@ class TableCalculation:
 
                     box1_value = self.main_list[loop_main_pivot - self.main_pivot]
                     box1_value_to_sum = 0
-                    print(f_strand[f_strand_index], s_strand[s_strand_index])
-                    if f_strand[f_strand_index+1] == (s_strand[s_strand_index+1]):
+                    #print(f_strand[f_strand_index], s_strand[s_strand_index])
+                    if f_strand[f_strand_index + 1] == (s_strand[s_strand_index + 1]):
                         box1_value_to_sum = any_match
-                    elif(f_strand[f_strand_index+1] != s_strand[s_strand_index+1]):
+                    elif (f_strand[f_strand_index + 1] != s_strand[s_strand_index + 1]):
                         box1_value_to_sum = mismatch
 
                     box1_value_summed = box1_value + box1_value_to_sum
                     f_strand_index = f_strand_index + 1
-
-
 
                     # Diagonal Boxes only sumed with Gap penalty
                     box2_value = self.main_list[loop_main_pivot - (self.main_pivot - 1)]
                     box3_value = self.main_list[loop_main_pivot - 1]
                     box2_value_summed = box2_value + gap_penalty
                     box3_value_summed = box3_value + gap_penalty
-                    temp_list_box_value=[box1_value_summed, box2_value_summed, box3_value_summed]
+                    temp_list_box_value = [box1_value_summed, box2_value_summed, box3_value_summed]
                     box4_value = max(temp_list_box_value)
-                    #print("loop_main_pivot: "+str(loop_main_pivot),"f_s_index: "+str(f_strand_index),"s_s_index: "+str(s_strand_index), f_strand, s_strand)
-                    #print(temp_list_box_value)
-                    #print("box 1 value: "+str(box1_value), "box1 value to sum: "+str(box1_value_to_sum), "box1 value summed"+str(box1_value_summed))
-                    #print(box2_value_summed)
-                    #print(box3_value_summed)
+                    # print("loop_main_pivot: "+str(loop_main_pivot),"f_s_index: "+str(f_strand_index),"s_s_index: "+str(s_strand_index), f_strand, s_strand)
+                    # print(temp_list_box_value)
+                    # print("box 1 value: "+str(box1_value), "box1 value to sum: "+str(box1_value_to_sum), "box1 value summed"+str(box1_value_summed))
+                    # print(box2_value_summed)
+                    # print(box3_value_summed)
                     self.main_list[loop_main_pivot] = box4_value
 
                 if ((loop_main_pivot in self.no_pivot_index) and (loop_main_pivot > no_index_index_value)):
@@ -164,4 +162,5 @@ class TableCalculation:
 
             loop_main_pivot = loop_main_pivot + 1
 
-        print(self.main_list)
+    def get_main_list(self):
+        return self.main_list
