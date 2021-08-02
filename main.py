@@ -80,7 +80,7 @@ def main():
             main()
         if(final_decision=="y"):
             exit()
-            
+
         if(final_decision!="y" and final_decision != "n"):
             print(" ")
             print("Please type y or n.")
